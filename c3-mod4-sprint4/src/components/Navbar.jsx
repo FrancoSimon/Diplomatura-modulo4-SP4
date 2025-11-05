@@ -81,6 +81,14 @@ const Navbar = () => {
                   href="/"
                   className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block"
                 >
+                  Actividades
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block"
+                >
                   Nosotros
                 </a>
               </li>
@@ -131,6 +139,15 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Inicio
+              </a>
+            </li>
+            <li className="py-2 text-center">
+              <a
+                href="/"
+                className="text-white hover:text-sky-100 block"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Nosotros
               </a>
             </li>
             <li className="py-2 text-center">
