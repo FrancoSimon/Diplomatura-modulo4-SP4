@@ -112,7 +112,7 @@ const Navbar = () => {
               rel="noopener noreferrer"
               className="text-white hover:text-sky-100 transition-all duration-300 hover:scale-125"
             >
-              <InstagramIcon className="w-6 h-6" />
+              <i className="bi bi-instagram"></i>
             </a>
             <a
               href="https://www.github.com"
@@ -120,7 +120,15 @@ const Navbar = () => {
               rel="noopener noreferrer"
               className="text-white hover:text-sky-100 transition-all duration-300 hover:scale-125"
             >
-              <GithubIcon className="w-6 h-6" />
+              <i className="bi bi-github"></i>
+            </a>
+                        <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-sky-100 transition-all duration-300 hover:scale-125"
+            >
+              <i class="bi bi-box-arrow-in-right"></i>
             </a>
           </div>
         </div>
@@ -147,7 +155,7 @@ const Navbar = () => {
                 className="text-white hover:text-sky-100 block"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Nosotros
+                Actividades
               </a>
             </li>
             <li className="py-2 text-center">
@@ -186,6 +194,14 @@ const Navbar = () => {
               className="text-white hover:text-sky-100"
             >
               <i className="bi bi-github"></i>
+            </a>
+            <a
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-sky-100"
+            >
+              <i class="bi bi-box-arrow-in-right"></i>
             </a>
           </div>
         </div>
