@@ -122,13 +122,13 @@ const Navbar = () => {
             >
               <i className="bi bi-github"></i>
             </a>
-                        <a
+            <a
               href="/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-sky-100 transition-all duration-300 hover:scale-125"
             >
-              <i class="bi bi-box-arrow-in-right"></i>
+              <i className="bi bi-box-arrow-in-right"></i>
             </a>
           </div>
         </div>
@@ -201,7 +201,7 @@ const Navbar = () => {
               rel="noopener noreferrer"
               className="text-white hover:text-sky-100"
             >
-              <i class="bi bi-box-arrow-in-right"></i>
+              <i className="bi bi-box-arrow-in-right"></i>
             </a>
           </div>
         </div>
