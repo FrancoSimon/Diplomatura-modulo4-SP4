@@ -78,10 +78,10 @@ const Navbar = () => {
               </li>
               <li>
                 <a
-                  href="/"
+                  href="#servicios"
                   className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block"
                 >
-                  Actividades
+                  Servicios Turísticos
                 </a>
               </li>
               <li>
@@ -151,11 +151,11 @@ const Navbar = () => {
             </li>
             <li className="py-2 text-center">
               <a
-                href="/"
+                href="#servicios"
                 className="text-white hover:text-sky-100 block"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Actividades
+                Servicios Turísticos
               </a>
             </li>
             <li className="py-2 text-center">
