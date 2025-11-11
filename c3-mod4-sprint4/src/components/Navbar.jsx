@@ -100,7 +100,6 @@ const Navbar = () => {
                   Contacto
                 </a>
               </li>
-              {/*<li><a href="/" className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block">Soporte</a></li>*/}
             </ul>
           </div>
 
@@ -176,7 +175,6 @@ const Navbar = () => {
                 Contacto
               </a>
             </li>
-            {/* <li className="py-2 text-center"><a href="/" className="text-white hover:text-sky-100 block" onClick={() => setIsMenuOpen(false)}>Soporte</a></li>*/}
           </ul>
           <div className="flex space-x-4 px-4 py-2 border-t  bg-black justify-center">
             <a
