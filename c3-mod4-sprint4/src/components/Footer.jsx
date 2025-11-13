@@ -7,7 +7,7 @@ export const Footer = () => {
           <p>
             Repo:
             <a
-              href="https://www.github.com"
+              href="https://github.com/FrancoSimon/Diplomatura-modulo4-SP4"
               target="_blank"
               rel="noopener noreferrer"
               className="text-orange-400 hover:text-orange-700 transition-transform duration-300 transform hover:scale-110 inline-block m-1"

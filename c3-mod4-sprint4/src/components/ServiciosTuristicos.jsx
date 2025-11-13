@@ -21,10 +21,10 @@ const ServiciosTuristicos = () => {
       toast.warning("Debe ingresar un número válido mayor a cero");
       return;
     }
-    toast.info("Cargando servicios turísticos...");
+    //toast.info("Cargando servicios turísticos...");
     try {
       const { data } = await axios.get(
-        `https://69067c12ee3d0d14c135e9b3.mockapi.io/api/v1/actividades?page=1&limit=${cantidad}` //api
+        `${import.meta.env.VITE_SERVTUR_KEY}?page=1&limit=${cantidad}` //api
       );
       setTuristicos(data);
       toast.success("Servicos obtenidos correctamente");
@@ -48,24 +48,22 @@ const ServiciosTuristicos = () => {
       toast.warning("Debe ingresar un nombre para buscar");
       return;
     }
-    toast.info("Buscando servicios turísticos...");
+    {
+      /*toast.info("Buscando servicios turísticos...");*/
+    }
     try {
-      const { data } = await axios.get(
-        "https://69067c12ee3d0d14c135e9b3.mockapi.io/api/v1/actividades"
-      );
+      const { data } = await axios.get(`${import.meta.env.VITE_SERVTUR_KEY}`);
       const resultado = data.filter((item) =>
         item.nombre.toLowerCase().includes(termino)
       );
       if (resultado.length === 0) {
-        setError("No se encontraron servicios con ese nombre.");
-        toast.info("No se encontraron coincidencias.");
+        toast.error("Error al obtener los servicios turísticossss.");
       } else {
         setTuristicos(resultado);
         toast.success("Servicios encontrados correctamente");
       }
     } catch (err) {
       console.error(err);
-
       toast.error("Error al obtener los servicios turísticos.");
     }
   };
