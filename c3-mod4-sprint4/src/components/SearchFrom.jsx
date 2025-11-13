@@ -19,7 +19,7 @@ const SearchForm = () => {
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Ingrese ciudad o provincia"
-        className="p-2 border border-gray-300 rounded w-64"
+        className="p-2 border border-gray-400 rounded w-64"
       />
       <button
         type="submit"

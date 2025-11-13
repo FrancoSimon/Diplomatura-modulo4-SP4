@@ -17,7 +17,6 @@ const App = () => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
-        <Navbar />
         <main className="grow">
           <Header />
           <ServiciosTuristicos />
@@ -35,11 +34,15 @@ const App = () => {
           />
         </main>
         <WeatherProvider>
-          <div className="flex flex-col items-center justify-center bg-gray-300">
-            <h1 className="text-3xl font-bold m-0">Weather app</h1>
+          <Navbar />
+          <div
+            id="clima"
+            className="flex flex-col items-center justify-center bg-gray-300 p-4 pt-22"
+          >
+            <h1 className="text-3xl font-bold">Pronóstico del tiempo</h1>
+            <SearchForm />
+            <WeatherCard />
           </div>
-          <SearchForm />
-          <WeatherCard />
         </WeatherProvider>
 
         <Footer />
