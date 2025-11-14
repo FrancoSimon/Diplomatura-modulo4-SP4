@@ -1,6 +1,4 @@
 @import "tailwindcss";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-html {
-  scroll-behavior: smooth; /*para que el scroll sea fluido*/
-}
+

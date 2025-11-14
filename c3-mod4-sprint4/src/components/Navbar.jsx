@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { useWeather } from "../context/WeatherContext";
+import FavoritosModal from "./FavoritosModal";
+import { useWatchlist } from "../hooks/useWatchlist";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { weatherData, loading, getWeather } = useWeather();
+  const { watchlist, removeFromWatchlist } = useWatchlist();
+  const [favOpen, setFavOpen] = useState(false);
 
   useEffect(() => {
     // Solo se ejecuta una vez al montar el Navbar
@@ -46,6 +50,7 @@ const Navbar = () => {
   }
 
   return (
+  <>
     <nav className="fixed top-0 left-0 w-full bg-black/80 z-50 transition-all duration-300">
       <div className="flex justify-between items-center sm:px-12 sm:py-6 px-4 py-3">
         {/* Logo + Clima */}
@@ -58,11 +63,11 @@ const Navbar = () => {
             alt="Logo"
             className="w-[60px] hover:opacity-80 transition-opacity"
           />
-          {/* Mostrar el clima si ya se cargó */}
+
           {weatherInfo}
         </div>
 
-        {/* Botón hamburguesa móvil */}
+        {/* Botón hamburguesa */}
         <button
           className="md:hidden text-white p-2"
           onClick={toggleMenu}
@@ -89,6 +94,15 @@ const Navbar = () => {
         <div className="hidden md:block">
           <ul className="flex sm:space-x-8 space-x-4 px-4">
             <li>
+              <button
+                onClick={() => setFavOpen(true)}
+                className="sm:text-lg text-sm text-yellow-300 hover:text-yellow-400 transition-transform duration-300 transform hover:scale-110 inline-block"
+              >
+                ⭐ Favoritos ({watchlist.length})
+              </button>
+            </li>
+
+            <li>
               <a
                 href="/"
                 className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block"
@@ -96,6 +110,7 @@ const Navbar = () => {
                 Inicio
               </a>
             </li>
+
             <li>
               <a
                 href="#servicios"
@@ -104,6 +119,7 @@ const Navbar = () => {
                 Servicios Turísticos
               </a>
             </li>
+
             <li>
               <a
                 href="#clima"
@@ -112,6 +128,7 @@ const Navbar = () => {
                 Clima
               </a>
             </li>
+
             <li>
               <a
                 href="/"
@@ -157,6 +174,19 @@ const Navbar = () => {
         }`}
       >
         <ul className="flex flex-col px-4 py-2">
+
+          <li className="py-2 text-center">
+            <button
+              className="text-yellow-300 hover:text-yellow-400 block mx-auto"
+              onClick={() => {
+                setFavOpen(true);
+                setIsMenuOpen(false);
+              }}
+            >
+              ⭐ Favoritos ({watchlist.length})
+            </button>
+          </li>
+
           <li className="py-2 text-center">
             <a
               href="/"
@@ -166,6 +196,7 @@ const Navbar = () => {
               Inicio
             </a>
           </li>
+
           <li className="py-2 text-center">
             <a
               href="#servicios"
@@ -175,15 +206,17 @@ const Navbar = () => {
               Servicios Turísticos
             </a>
           </li>
+
           <li className="py-2 text-center">
             <a
-              href="#Clima"
+              href="#clima"
               className="text-white hover:text-sky-100 block"
               onClick={() => setIsMenuOpen(false)}
             >
               Clima
             </a>
           </li>
+
           <li className="py-2 text-center">
             <a
               href="/"
@@ -194,6 +227,7 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
+
         <div className="flex space-x-4 px-4 py-2 border-t bg-black justify-center">
           <a
             href="https://www.instagram.com"
@@ -217,7 +251,17 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  );
+
+    {/* MODAL DE FAVORITOS */}
+    <FavoritosModal
+      isOpen={favOpen}
+      onClose={() => setFavOpen(false)}
+      watchlist={watchlist}
+      removeFromWatchlist={removeFromWatchlist}
+    />
+  </>
+);
+
 };
 
 export default Navbar;

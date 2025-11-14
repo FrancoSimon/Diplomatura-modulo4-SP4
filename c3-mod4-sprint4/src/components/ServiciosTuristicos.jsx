@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+//import { useFavorites } from "../context/FavoriteContext"; //favites
+//import { useCart } from "../context/CartContext"; //favorites
+import { useWatchlist } from "../hooks/useWatchlist"; //favotimodal
 
 const ServiciosTuristicos = () => {
   const [turisticos, setTuristicos] = useState([]);
   const [error, setError] = useState(null);
   const [number, setNumber] = useState("");
   const [search, setSearch] = useState("");
+  //const { addToFavorites } = useFavorites();
+  //const { addToCart } = useCart();
+  const { addToWatchlist } = useWatchlist();
 
   // obtener por cantidad
   const handleSubmit = async (e) => {
@@ -135,9 +141,20 @@ const ServiciosTuristicos = () => {
                   {turistico.descripcion}
                 </p>
               </div>
+
               <p className="text-green-400 font-bold text-lg mt-auto">
                 ${turistico.precio.toLocaleString("es-AR")}
               </p>
+
+              {/* Botones */}
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => addToWatchlist(turistico)}
+                  className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-white"
+                >
+                  ⭐ Agregar a Favoritos
+                </button>
+              </div>
             </div>
           ))}
       </div>

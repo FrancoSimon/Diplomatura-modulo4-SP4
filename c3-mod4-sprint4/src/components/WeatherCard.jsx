@@ -28,12 +28,14 @@ const WeatherCard = () => {
 
   // Ícono del clima desde OpenWeather
   const iconCode = weather[0]?.icon;
-  const URL=import.meta.env.VITE_ICONWEATHER;
+  const URL = import.meta.env.VITE_ICONWEATHER;
   const iconUrl = `${URL}${iconCode}@2x.png`;
 
   return (
-    <div  className="bg-white rounded-2xl shadow-lg p-6 text-center max-w-xl mx-auto mb-3">
-      <h2 className="text-2xl font-bold mb-1">Pronóstico del tiempo en {name} hoy</h2>
+    <div className="bg-white rounded-2xl shadow-lg p-6 text-center max-w-xl mx-auto mb-3">
+      <h2 className="text-2xl font-bold mb-1">
+        Pronóstico del tiempo en {name} hoy
+      </h2>
       <p className="capitalize text-gray-600">{fechaFiambala}</p>
       <p className="text-gray-700 mb-3">Hora: {horaFiambala}</p>
 
