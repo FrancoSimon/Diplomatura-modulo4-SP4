@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 //import { useFavorites } from "../context/FavoriteContext"; //favites
 //import { useCart } from "../context/CartContext"; //favorites
-import { useWatchlist } from "../hooks/useWatchlist"; //favotimodal
+import { useWatchlist } from "../context/WatchlistContext"; //favotimodal
 
 const ServiciosTuristicos = () => {
   const [turisticos, setTuristicos] = useState([]);
