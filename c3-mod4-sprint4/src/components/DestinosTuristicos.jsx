@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-//import { useFavorites } from "../context/FavoriteContext"; //favites
-//import { useCart } from "../context/CartContext"; //favorites
 import { useWatchlist } from "../context/WatchlistContext"; //favotimodal
+import Button from "./Button";
 
-const ServiciosTuristicos = () => {
+const DestinosTuristicos = () => {
   const [turisticos, setTuristicos] = useState([]);
   const [error, setError] = useState(null);
   const [number, setNumber] = useState("");
@@ -77,24 +76,25 @@ const ServiciosTuristicos = () => {
   return (
     <div
       id="servicios"
-      className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6 pt-22"
+      className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6 pt-[98px]"
     >
-      <h1 className="text-3xl font-bold mb-6">Servicios Turísticos</h1>
+      <h1 className="text-3xl font-bold mb-6">Destinos</h1>
       {/*Formulario por cantidad*/}
       <form onSubmit={handleSubmit} className="mb-6 flex items-center gap-3">
         <input
           type="number"
           placeholder="Ingrese un número"
-          className="p-2 rounded bg-gray-800 border shadow shadow-amber-500"
+          className="p-2 rounded bg-gray-800 border shadow shadow-gray-200"
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
-        <button
+        <Button
           type="submit"
-          className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg"
+          variant="primary"
+          //className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg"
         >
-          Obtener servicios
-        </button>
+          Obtener Destinos
+        </Button>
       </form>
 
       {/*Formulario por búsqueda*/}
@@ -102,7 +102,7 @@ const ServiciosTuristicos = () => {
         <input
           type="text"
           placeholder="Buscar por nombre..."
-          className="p-2 rounded bg-gray-800 border shadow shadow-amber-500"
+          className="p-2 rounded bg-gray-800 border shadow shadow-gray-200"
           value={search}
           onChange={(e) => {
             const value = e.target.value;
@@ -110,12 +110,13 @@ const ServiciosTuristicos = () => {
             setSearch(soloTexto);
           }}
         />
-        <button
+        <Button
           type="submit"
-          className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg"
+          variant="primary"
+          //className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg"
         >
-          Buscar por nombre
-        </button>
+          Buscar Destino
+        </Button>
       </form>
 
       {error && <p className="mt-4 text-red-500">{error}</p>}
@@ -148,12 +149,13 @@ const ServiciosTuristicos = () => {
 
               {/* Botones */}
               <div className="flex justify-center mt-4">
-                <button
+                <Button
                   onClick={() => addToWatchlist(turistico)}
-                  className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-white"
+                  variant="tertiary"
                 >
-                  ⭐ Agregar a Favoritos
-                </button>
+                  <i className="bi bi-heart-fill text-red-500"></i> Agregar a
+                  Favoritos
+                </Button>
               </div>
             </div>
           ))}
@@ -162,4 +164,4 @@ const ServiciosTuristicos = () => {
   );
 };
 
-export default ServiciosTuristicos;
+export default DestinosTuristicos;

@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar.jsx";
 import { Footer } from "./components/Footer.jsx";
 import { Header } from "./components/Header.jsx";
-import ServiciosTuristicos from "./components/ServiciosTuristicos.jsx";
+import DestinosTuristicos from "./components/DestinosTuristicos.jsx";
 
 import { WeatherProvider } from "./context/WeatherContext.jsx";
 import WeatherCard from "./components/WeatherCard.jsx";
@@ -35,8 +35,8 @@ const App = () => {
                 {/* HERO / CABECERA */}
                 <Header />
 
-                {/* SERVICIOS + BOTÓN AGREGAR A FAVORITOS */}
-                <ServiciosTuristicos />
+                {/* DESTINOS + BOTÓN AGREGAR A FAVORITOS */}
+                <DestinosTuristicos />
 
                 {/* SECCIÓN CLIMA */}
                 <WeatherProvider>

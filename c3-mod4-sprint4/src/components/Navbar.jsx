@@ -22,8 +22,13 @@ const Navbar = () => {
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const redirectToHome = () => (window.location.href = "/");
+  /*
+   const redirectToClima = () => (window.location.href = "/#clima"); //window.location.href: asigna una nueva URL; "/#clima":fragmento de URL #clima;
+   //  todo redirige al usuario a la misma páginalo que generalmente desplaza la vista hasta el elemento con id="clima"
+  // usar con: onClick={redirectToClima}
+   //Usar onClick solo es necesario si necesitas lógica adicional antes de navegar.
 
+*/
   // Datos del clima (compacto)
   let weatherInfo = null;
   if (weatherData && !loading) {
@@ -31,20 +36,35 @@ const Navbar = () => {
     const iconCode = weather[0]?.icon;
     const URL = import.meta.env.VITE_ICONWEATHER;
     const iconUrl = `${URL}${iconCode}@2x.png`;
-    const horaFiambala = new Date(dt * 1000).toLocaleTimeString("es-AR", {
+    const localDate = new Date(dt * 1000);
+    const horaFiambala = localDate.toLocaleTimeString("es-AR", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
+      timeZone: "America/Argentina/Catamarca", // Hora de Fiambalá
+    });
+
+    const fechaFiambala = localDate.toLocaleDateString("es-AR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
       timeZone: "America/Argentina/Catamarca",
     });
 
     weatherInfo = (
-      <div className="flex items-center gap-2 text-white text-sm">
-        <img src={iconUrl} alt="clima" className="w-8 h-8" />
-        <span>{main.temp.toFixed(1)}°C</span>
-        <span className="hidden sm:inline text-gray-300 text-xs">
-          {horaFiambala}
-        </span>
+      <div className="flex flex-col  space-y-0">
+        <div className="flex items-center gap-2 text-white text-sm">
+          <img src={iconUrl} alt="clima" className="w-8 h-8" />
+          <span>{main.temp.toFixed(1)}°C</span>
+          <span className="hidden sm:inline text-gray-300 text-xs">
+            {horaFiambala}
+          </span>
+        </div>
+        <div className="mt-0 p-0">
+          <span className="hidden sm:inline text-gray-300 text-xs">
+            {fechaFiambala}
+          </span>
+        </div>
       </div>
     );
   }
@@ -52,20 +72,23 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed top-0 left-0 w-full bg-black/80 z-50 transition-all duration-300">
-        <div className="flex justify-between items-center sm:px-12 sm:py-6 px-4 py-3">
+        <div className="flex justify-between items-center sm:px-12 sm:py-6 px-4">
           {/* Logo + Clima */}
-          <div
-            className="flex items-center gap-4 cursor-pointer"
-            onClick={redirectToHome}
-          >
+          <a className="flex items-center cursor-pointer" href="/">
             <img
               src="/src/assets/logo.png"
               alt="Logo"
               className="w-[60px] hover:opacity-80 transition-opacity"
             />
-
+            <img
+              src="/src/assets/fiambala.png"
+              alt="Logo"
+              className="w-[60px] hover:opacity-80 transition-opacity"
+            />
+          </a>
+          <a href="#clima" className="flex items-center cursor-pointer">
             {weatherInfo}
-          </div>
+          </a>
 
           {/* Botón hamburguesa */}
           <button
@@ -109,7 +132,7 @@ const Navbar = () => {
                   href="#servicios"
                   className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block"
                 >
-                  Servicios Turísticos
+                  Destinos
                 </a>
               </li>
 
@@ -132,13 +155,22 @@ const Navbar = () => {
               </li>
 
               <li>
-                <a
-                  onClick={() => setFavOpen(true)}
-                  className="sm:text-lg text-sm text-white hover:text-orange-400 transition-transform duration-300 transform hover:scale-110 inline-block"
-                  title="Destinos Favoritos"
+                <button
+                  className="text-orange-400 hover:text-red-500 block mx-auto relative group cursor-pointer"
+                  onClick={() => {
+                    setFavOpen(true);
+                    setIsMenuOpen(false);
+                  }}
                 >
                   <i className="bi bi-heart-fill"></i>
-                </a>
+
+                  {/* Tooltip con mejor estilo */}
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-10 pointer-events-none">
+                    <span className="font-medium">Favoritos</span> (
+                    {watchlist.length})
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-white"></div>
+                  </div>
+                </button>
               </li>
             </ul>
           </div>
@@ -193,7 +225,7 @@ const Navbar = () => {
                 className="text-white hover:text-sky-100 block"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Servicios Turísticos
+                Destinos
               </a>
             </li>
 
@@ -216,17 +248,24 @@ const Navbar = () => {
                 Contacto
               </a>
             </li>
-            <li className="py-2 text-center">
-                <button
-                className="text-white hover:text-sky-100"
+            <li>
+              <button
+                className="text-orange-400 hover:text-red-500 block mx-auto relative group cursor-pointer"
                 onClick={() => {
                   setFavOpen(true);
                   setIsMenuOpen(false);
                 }}
               >
                 <i className="bi bi-heart-fill"></i>
+
+                {/* Tooltip con mejor estilo */}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-10 pointer-events-none">
+                  <span className="font-medium">Favoritos</span> (
+                  {watchlist.length})
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-white"></div>
+                </div>
               </button>
-              </li>
+            </li>
           </ul>
 
           <div className="flex space-x-4 px-4 py-2 border-t bg-black justify-center">

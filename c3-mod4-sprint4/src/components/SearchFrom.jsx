@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useWeather } from "../context/WeatherContext";
+import Button from "./Button";
 
 const SearchForm = () => {
   const [city, setCity] = useState(""); // manejar la consulta
@@ -19,14 +20,14 @@ const SearchForm = () => {
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Ingrese ciudad o provincia"
-        className="p-2 border border-gray-400 rounded w-64"
+        className="p-2 bg-white border border-gray-700 rounded  shadow shadow-white w-64"
       />
-      <button
+      <Button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+        variant="primary"
       >
         Buscar
-      </button>
+      </Button>
     </form>
   );
 };

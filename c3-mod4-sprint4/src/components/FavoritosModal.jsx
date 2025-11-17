@@ -18,20 +18,21 @@ const FavoritosModal = ({
           <h2 className="text-2xl font-bold text-gray-800">
             Mis destinos favoritos
           </h2>
-          <Button
+
+          <button
             onClick={onClose}
-            variant=""
-            className="!p-2 !bg-transparent !text-gray-600 hover:!text-gray-800 !shadow-none text-xl"
+            title="Cerrar"
+            className="outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 border-0 bg-transparent"
           >
-            <i className="bi bi-x-lg"></i>
-          </Button>
+            <i className="bi bi-x-lg text-gray-600 hover:text-black text-xl cursor-pointer"></i>
+          </button>
         </div>
 
         {/* Contenido con scroll */}
         <div className="flex-1 overflow-y-auto p-6">
           {watchlist.length === 0 ? (
             <div className="text-center py-8">
-              <i className="bi bi-heart text-4xl text-gray-400 mb-3"></i>
+              <i className="bi bi-heart text-4xl text-red-500 mb-3"></i>
               <p className="text-gray-500 text-lg">
                 No tienes destinos guardados.
               </p>
@@ -51,18 +52,24 @@ const FavoritosModal = ({
                     alt={d.nombre}
                     className="w-full h-32 object-cover"
                   />
+
                   <div className="p-4">
                     <div className="flex justify-center items-center mb-2">
                       <h3 className="text-lg font-semibold text-gray-800 flex-1 pr-2">
                         {d.nombre}
                       </h3>
-                      <Button
+
+                      {/* Botón eliminar favorito con tooltip */}
+                      <button
                         onClick={() => removeFromWatchlist(d.id)}
-                        variant=""
-                        title="Quitar de favoritos"
+                        className="group outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 border-0 bg-transparent p-1 relative"
                       >
-                        <i className="bi bi-heartbreak-fill"></i>
-                      </Button>
+                        <i className="bi bi-heartbreak-fill text-red-500 hover:text-black cursor-pointer transition-colors duration-200"></i>
+
+                        <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-transparent text-black text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition">
+                          Quitar
+                        </span>
+                      </button>
                     </div>
                   </div>
                 </div>
