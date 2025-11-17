@@ -21,10 +21,12 @@ const FavoritosModal = ({
 
           <button
             onClick={onClose}
-            title="Cerrar"
-            className="outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 border-0 bg-transparent"
+            className="group outline-none focus:outline-none focus:ring-0 focus:ring-offset-0 border-0 bg-transparent p-1 relative"
           >
-            <i className="bi bi-x-lg text-gray-600 hover:text-black text-xl cursor-pointer"></i>
+            <i className="bi bi-x-lg text-gray-600 hover:text-black cursor-pointer transition-colors duration-200"></i>
+            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-transparent text-black text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition">
+              Cerrar
+            </span>
           </button>
         </div>
 

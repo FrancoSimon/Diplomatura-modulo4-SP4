@@ -1,9 +1,23 @@
 import { useWeather } from "../context/WeatherContext";
+import { SpinnerDiamond } from "spinners-react";
+import { toast } from "react-toastify";
 
 const WeatherCard = () => {
   const { weatherData, loading, error } = useWeather();
 
-  if (loading) return <p className="text-gray-700">Cargando...</p>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center py-6">
+        <SpinnerDiamond
+          size={70}
+          thickness={100}
+          speed={100}
+          color="#36ad47"
+          secondaryColor="rgba(0, 0, 0, 0.44)"
+        />
+      </div>
+    );
+
   if (error) return <p className="text-red-500">{error}</p>;
   if (!weatherData)
     return <p className="text-gray-700">No hay datos disponibles.</p>;
@@ -16,7 +30,7 @@ const WeatherCard = () => {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "America/Argentina/Catamarca", // Hora de Fiambalá
+    timeZone: "America/Argentina/Catamarca",
   });
 
   const fechaFiambala = localDate.toLocaleDateString("es-AR", {
@@ -26,7 +40,7 @@ const WeatherCard = () => {
     timeZone: "America/Argentina/Catamarca",
   });
 
-  // Ícono del clima desde OpenWeather
+  // Ícono del clima
   const iconCode = weather[0]?.icon;
   const URL = import.meta.env.VITE_ICONWEATHER;
   const iconUrl = `${URL}${iconCode}@2x.png`;
@@ -53,12 +67,6 @@ const WeatherCard = () => {
 
       <p className="text-4xl font-bold my-3">{main?.temp.toFixed(1)}°C</p>
 
-      {/*
-      <div className="flex justify-around text-sm text-gray-700">
-        <p>Máx: {main?.temp_max.toFixed(1)}°C</p>
-        <p>Mín: {main?.temp_min.toFixed(1)}°C</p>
-      </div>
-*/}
       <p className="mt-2 text-gray-700">Humedad: {main?.humidity}%</p>
     </div>
   );

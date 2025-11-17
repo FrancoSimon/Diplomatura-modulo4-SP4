@@ -1,15 +1,23 @@
 import { useState, useEffect } from "react";
 import { Motionhearder } from "./Motionhearder";
 
+// Importar todas las imágenes
+import fondo from "../assets/Fondo-1200x600.jpg";
+import angostura from "../assets/angostura.jpeg";
+import cerrocolores from "../assets/cerrocolores.jpeg";
+import laguna6000 from "../assets/laguna6000.jpg";
+import medanosalposo from "../assets/medanosalposo.jpg";
+import nochetermas from "../assets/nochetermas.JPG";
+
 export const Header = () => {
+  // Usar las imágenes importadas
   const images = [
-    "/src/assets/Fondo-1200x600.jpg",
-    "/src/assets/angostura.jpeg",
-    "/src/assets/cerrocolores.jpeg",
-    "/src/assets/laguna6000.jpg",
-    "/src/assets/medanosalposo.jpg",
-    "/src/assets/nochetermas.JPG",
-    
+    fondo,
+    angostura,
+    cerrocolores,
+    laguna6000,
+    medanosalposo,
+    nochetermas,
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
