@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import { fetchWeather } from "../services/WeatherApi";
+import { toast } from "react-toastify";
 
 const WeatherContext = createContext();
 
@@ -9,15 +10,26 @@ export const WeatherProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const getWeather = async (city) => {
+    //Validación campo vacío
+    if (!city || !city.trim()) {
+      toast.warn("Ingrese una ciudad válida");
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
       const data = await fetchWeather(city); //recibe la info de api
       setWeatherData(data);
-      console.log(data);
+      //console.log(data);
     } catch (err) {
       console.error(err);
-      setError("No se encontró la ciudad");
+      // Manejo específico de error 404
+      if (err.response?.status === 404) {
+        toast.error("Ciudad no encontrada");
+      } else {
+        toast.error("Error al obtener el clima");
+      }
+      //setError("No se encontró la ciudad");
       setWeatherData(null);
     } finally {
       setLoading(false);
@@ -25,7 +37,9 @@ export const WeatherProvider = ({ children }) => {
   };
 
   return (
-    <WeatherContext.Provider value={{ weatherData, loading, error, getWeather }}>
+    <WeatherContext.Provider
+      value={{ weatherData, loading, error, getWeather }}
+    >
       {children}
     </WeatherContext.Provider>
   );

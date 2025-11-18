@@ -5,15 +5,15 @@ import Navbar from "./components/Navbar.jsx";
 import { Footer } from "./components/Footer.jsx";
 import { Header } from "./components/Header.jsx";
 import DestinosTuristicos from "./components/DestinosTuristicos.jsx";
-
-import { WeatherProvider } from "./context/WeatherContext.jsx";
 import WeatherCard from "./components/WeatherCard.jsx";
 import SearchForm from "./components/SearchFrom.jsx";
-import { WatchlistProvider } from "./context/WatchlistContext.jsx";
 
-// Providers nuevos
+import { WeatherProvider } from "./context/WeatherContext.jsx";
+import { WatchlistProvider } from "./context/WatchlistContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { FavoriteProvider } from "./context/FavoriteContext.jsx";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   useEffect(() => {
@@ -22,24 +22,18 @@ const App = () => {
 
   return (
     <>
-      <WatchlistProvider>
-        <FavoriteProvider>
-          <CartProvider>
-            {/* NAVBAR SIEMPRE ARRIBA */}
-            <WeatherProvider>
+      <WeatherProvider>
+        <WatchlistProvider>
+          <FavoriteProvider>
+            <CartProvider>
               <Navbar />
-            </WeatherProvider>
 
-            <div className="flex flex-col min-h-screen">
-              <main className="grow">
-                {/* HERO / CABECERA */}
-                <Header />
+              <div className="flex flex-col min-h-screen">
+                <main className="grow">
+                  <Header />
 
-                {/* DESTINOS + BOTÓN AGREGAR A FAVORITOS */}
-                <DestinosTuristicos />
+                  <DestinosTuristicos />
 
-                {/* SECCIÓN CLIMA */}
-                <WeatherProvider>
                   <div
                     id="clima"
                     className="flex flex-col items-center justify-center bg-gray-300 p-4 pt-22"
@@ -50,29 +44,22 @@ const App = () => {
                     <SearchForm />
                     <WeatherCard />
                   </div>
-                </WeatherProvider>
+                </main>
 
-                {/* TOASTS */}
-                <ToastContainer
-                  position="bottom-right"
-                  autoClose={3000}
-                  hideProgressBar
-                  newestOnTop={false}
-                  closeOnClick={false}
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover={false}
-                  theme="dark"
-                />
-              </main>
+                <Footer />
+              </div>
+            </CartProvider>
+          </FavoriteProvider>
+        </WatchlistProvider>
+      </WeatherProvider>
 
-              {/* FOOTER */}
-              <Footer />
-            </div>
-          </CartProvider>
-        </FavoriteProvider>
-      </WatchlistProvider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar
+        pauseOnHover={false}
+        theme="dark"
+      />
     </>
   );
 };

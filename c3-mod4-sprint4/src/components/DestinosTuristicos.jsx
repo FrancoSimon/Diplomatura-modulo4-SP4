@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useWatchlist } from "../context/WatchlistContext"; //favotimodal
+import { useWatchlist } from "../context/WatchlistContext";
 import Button from "./Button";
 
 const DestinosTuristicos = () => {
@@ -9,11 +9,10 @@ const DestinosTuristicos = () => {
   const [error, setError] = useState(null);
   const [number, setNumber] = useState("");
   const [search, setSearch] = useState("");
-  //const { addToFavorites } = useFavorites();
-  //const { addToCart } = useCart();
+
   const { addToWatchlist } = useWatchlist();
 
-  // obtener por cantidad
+  // Obtener por cantidad
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -21,29 +20,26 @@ const DestinosTuristicos = () => {
     setTuristicos([]);
 
     const cantidad = parseInt(number);
-    //validacion par evitar errores
     if (isNaN(cantidad) || cantidad <= 0) {
       toast.warning("Debe ingresar un número válido mayor a cero");
       return;
     }
-    //toast.info("Cargando servicios turísticos...");
+
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVTUR_KEY}?page=1&limit=${cantidad}` //api
+        `${import.meta.env.VITE_SERVTUR_KEY}?page=1&limit=${cantidad}`
       );
       setTuristicos(data);
-      toast.success("Servicos obtenidos correctamente");
+      toast.success("Servicios obtenidos correctamente");
     } catch (err) {
       console.error(err);
       toast.error("Error al obtener los servicios turísticos.");
     }
   };
 
-  //buscar por nombre
-
+  // Buscar por nombre
   const handleBusqueda = async (e) => {
     e.preventDefault();
-
     setError("");
     setNumber("");
     setTuristicos([]);
@@ -53,16 +49,15 @@ const DestinosTuristicos = () => {
       toast.warning("Debe ingresar un nombre para buscar");
       return;
     }
-    {
-      /*toast.info("Buscando servicios turísticos...");*/
-    }
+
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_SERVTUR_KEY}`);
       const resultado = data.filter((item) =>
         item.nombre.toLowerCase().includes(termino)
       );
+
       if (resultado.length === 0) {
-        toast.error("Error al obtener los servicios turísticossss.");
+        toast.error("No se encontraron destinos con ese nombre");
       } else {
         setTuristicos(resultado);
         toast.success("Servicios encontrados correctamente");
@@ -79,7 +74,8 @@ const DestinosTuristicos = () => {
       className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6 pt-[98px]"
     >
       <h1 className="text-3xl font-bold mb-6">Destinos</h1>
-      {/*Formulario por cantidad*/}
+
+      {/* Formulario por cantidad */}
       <form onSubmit={handleSubmit} className="mb-6 flex items-center gap-3">
         <input
           type="number"
@@ -88,16 +84,12 @@ const DestinosTuristicos = () => {
           value={number}
           onChange={(e) => setNumber(e.target.value)}
         />
-        <Button
-          type="submit"
-          variant="primary"
-          //className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg"
-        >
+        <Button type="submit" variant="primary">
           Obtener Destinos
         </Button>
       </form>
 
-      {/*Formulario por búsqueda*/}
+      {/* Formulario por búsqueda */}
       <form onSubmit={handleBusqueda} className="mb-6 flex items-center gap-3">
         <input
           type="text"
@@ -105,23 +97,21 @@ const DestinosTuristicos = () => {
           className="p-2 rounded bg-gray-800 border shadow shadow-gray-200"
           value={search}
           onChange={(e) => {
-            const value = e.target.value;
-            const soloTexto = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+            const soloTexto = e.target.value.replace(
+              /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g,
+              ""
+            );
             setSearch(soloTexto);
           }}
         />
-        <Button
-          type="submit"
-          variant="primary"
-          //className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg"
-        >
+        <Button type="submit" variant="primary">
           Buscar Destino
         </Button>
       </form>
 
       {error && <p className="mt-4 text-red-500">{error}</p>}
 
-      {/*Resultado*/}
+      {/* Resultado */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6 w-full max-w-6xl">
         {Array.isArray(turisticos) &&
           turisticos.map((turistico) => (
@@ -143,11 +133,6 @@ const DestinosTuristicos = () => {
                 </p>
               </div>
 
-              <p className="text-green-400 font-bold text-lg mt-auto">
-                ${turistico.precio.toLocaleString("es-AR")}
-              </p>
-
-              {/* Botones */}
               <div className="flex justify-center mt-4">
                 <Button
                   onClick={() => addToWatchlist(turistico)}

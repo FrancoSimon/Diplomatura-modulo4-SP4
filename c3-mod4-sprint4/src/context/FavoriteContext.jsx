@@ -1,5 +1,6 @@
 //contexto de favoritos
 import { createContext, useState, useEffect, useContext } from "react";
+import { toast } from "react-toastify";
 
 const FavoriteContext = createContext();
 
@@ -16,18 +17,27 @@ export const FavoriteProvider = ({ children }) => {
   // agregar a favoritos
   const addToFavorites = (servicio) => {
     const existe = favorites.some((item) => item.id === servicio.id);
-    if (!existe) {
-      setFavorites([...favorites, servicio]);
+
+    if (existe) {
+      toast.info("Ya está en favoritos");
+      return;
     }
+
+    setFavorites([...favorites, servicio]);
+    toast.success("Agregado a favoritos");
   };
 
   // remover de favoritos
   const removeFromFavorites = (id) => {
     setFavorites(favorites.filter((item) => item.id !== id));
+    toast.error("Eliminado de favoritos");
   };
 
   // vaciar todo
-  const clearFavorites = () => setFavorites([]);
+  const clearFavorites = () => {
+    setFavorites([]);
+    toast.warn("Favoritos vaciados");
+  };
 
   return (
     <FavoriteContext.Provider
@@ -39,3 +49,4 @@ export const FavoriteProvider = ({ children }) => {
 };
 
 export const useFavorites = () => useContext(FavoriteContext);
+
