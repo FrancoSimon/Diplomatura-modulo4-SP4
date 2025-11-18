@@ -1,6 +1,11 @@
 //contexto de favoritos
-import { createContext, useState, useEffect, useContext } from "react";
-import { toast } from "react-toastify";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
 
 const FavoriteContext = createContext();
 
@@ -10,43 +15,44 @@ export const FavoriteProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  // Guardar en localStorage solo cuando favorites cambia
   useEffect(() => {
     localStorage.setItem("favoritosFiambala", JSON.stringify(favorites));
   }, [favorites]);
 
-  // agregar a favoritos
-  const addToFavorites = (servicio) => {
-    const existe = favorites.some((item) => item.id === servicio.id);
+  // Funciones optimizadas con useCallback
 
-    if (existe) {
-      toast.info("Ya está en favoritos");
-      return;
-    }
+  const addToFavorites = useCallback(
+    (servicio) => {
+      setFavorites((prev) => {
+        const existe = prev.some((item) => item.id === servicio.id);
+        if (existe) return prev;
+        return [...prev, servicio];
+      });
+    },
+    [] // No depende de nada externo → no se recrea nunca
+  );
 
-    setFavorites([...favorites, servicio]);
-    toast.success("Agregado a favoritos");
-  };
+  const removeFromFavorites = useCallback((id) => {
+    setFavorites((prev) => prev.filter((item) => item.id !== id));
+  }, []);
 
-  // remover de favoritos
-  const removeFromFavorites = (id) => {
-    setFavorites(favorites.filter((item) => item.id !== id));
-    toast.error("Eliminado de favoritos");
-  };
-
-  // vaciar todo
-  const clearFavorites = () => {
+  const clearFavorites = useCallback(() => {
     setFavorites([]);
-    toast.warn("Favoritos vaciados");
+  }, []);
+
+  const value = {
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    clearFavorites,
   };
 
   return (
-    <FavoriteContext.Provider
-      value={{ favorites, addToFavorites, removeFromFavorites, clearFavorites }}
-    >
+    <FavoriteContext.Provider value={value}>
       {children}
     </FavoriteContext.Provider>
   );
 };
 
 export const useFavorites = () => useContext(FavoriteContext);
-
