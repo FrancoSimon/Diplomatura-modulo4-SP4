@@ -20,6 +20,7 @@ const Navbar = () => {
   useEffect(() => {
     // Cargar datos iniciales al montar el componente
     getWeather("Fiambalá");
+    
 
     // Configurar actualización automática cada 10 minutos
     const interval = setInterval(() => {
